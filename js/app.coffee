@@ -1,5 +1,5 @@
 #angular is a global variable
-PlaceDirective = require './directives/place-directive'
+PlaceDirective = require './directives/place-directive.coffee'
 
 #Create your app
 rcMovable = angular.module('rcMovable', [])
@@ -7,5 +7,6 @@ rcMovable = angular.module('rcMovable', [])
       new PlaceDirective()
   .controller "main", () ->
 
+module.exports = rcMovable
 
 

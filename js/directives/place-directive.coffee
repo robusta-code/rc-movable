@@ -9,9 +9,8 @@ class PlaceDirective
   scope:
     attributeStuff: '='
   link: (scope, element, attr) ->
-    alert "yo the directive from Coffescript class"
+    alert "yo the directive from Coffescript/Browserify class"
     angular.element(element).html("hello")
-
 
 
 module.exports = PlaceDirective
