@@ -1,0 +1,32 @@
+{
+  "name": "rc-movable",
+  "version": "0.0.1",
+  "homepage": "https://github.com/robusta-code/rc-movable",
+  "authors": [
+    "nicolas-zozol <nzozol@gmail.com>",
+      "Jean RAKOTOZAFY <jeanperlin@gmail.com> "
+  ],
+  "description": "High level Angular directives for element drag and drop in a transformable scene, mobile first.",
+  "main": "app.js",
+  "keywords": [
+    "angular",
+    "movable",
+    "drag-n-drop",
+    "touch",
+    "directive",
+    "zoom",
+    "Robusta-code"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.14",
+    "hammerjs": "~2.0.4"
+  }
+}

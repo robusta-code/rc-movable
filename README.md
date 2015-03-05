@@ -28,7 +28,7 @@ Include ``rc-movable.js`` in your HTML
 ![](./doc/movable.png)
 
         <!-- create a Place where you can drag from -->
-        <div dragable>
+        <div place="Capitole">
 
             <!-- create an element that will move inside the Place -->
             <div movable>...</div>
