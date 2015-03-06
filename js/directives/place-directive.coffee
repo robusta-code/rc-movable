@@ -1,4 +1,3 @@
-
 class PlaceDirective
   constructor: () ->
     # Constructor stuff
