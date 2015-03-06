@@ -8,8 +8,10 @@ The Touch events are using the light [Hammer.js](https://hammerjs.github.io/) de
 v 0.0.1 : simply DO NOT USE !!!!!
 ===
 
-OK, I want to check for fun or contribute
+OK, You want to check for fun or contribute
 ====
+
+Here is some documentation for what it will be
 
 ## Install
 
@@ -86,28 +88,6 @@ An element needs a Place to move
 * The initial Place has no css class when one of its element is being dragged
 * The destination Place has a 'valid-drop' or 'invalid-drop' class based on the drop condition
 
-## Design Patterns involved
-
-* Each Element and Place have a **State** object that manages the dragable/dropable/moving status, and x,y position for Elements. This State is *watched* by Angular
-* The dragable/dropable condition depends on the application state, the destination Place state and the dragged element. Thus it is managed by the ConditionMediator
-
-
-        <!-- myMediator  will decide if the Element can move out of placeA and go in placeB -->
-        <div rc-place="placeA" rc-draggable="myMediator">
-            <div rc-movable>....</div>
-        </div>
-
-        <div rc-place="placeB" rc-dropable="myMediator">
-
-        </div>
-
-### Logging and Undoing
-
-All move, zoom, drag, drop events are registered as **Command**s (another Design Pattern) inside a Logger object
-and a **Memento** object (yet another Design Pattern).
-You can push the Logger to your website and have more informations on how your end-users are using the action.
-You can use the Memento to *Undo* previous actions.
-
 
 Directive Summary
 ===
@@ -142,10 +122,75 @@ Element
 * `rc-movable="limit"`  : makes the element movable only inside it's Place. Thus, it's not dropable elsewhere.
 
 
+
 What is implemented as of today
 ====
 
 * Hmmm... Nothing :)
+
+Detailed documentation
+====
+
+TODO : Move into a directory, and link it from the main document
+
+`rc-place`
+---
+
+Adding rc-place directive will add a `rc-viewport` css class in the Place. The viewport is the window
+  where we will look into the real Place or Map. This *real* Place is a div awith a css class *place*;
+
+So the minimum code should be
+
+        <div class ="capitole" rc-place></div>
+
+And will be compiled as
+
+        <div class="capitole ng-isolate-scope rc-viewport" rc-place>
+            <div class="place"></div>
+        </div>
+
+## Transclusion
+
+`rc-place` is a transclusion element, so wrapped Elements in the Place are well put inside the Place
+
+        <div class ="capitole" rc-place>
+            <div rc-element="first"> Hi there</div>
+        </div>
+
+will be compiled as :
+
+        <div class="capitole ng-isolate-scope rc-viewport" rc-place>
+            <div class="place" ng-transclude>
+                <div rc-element="first" class="ng-scope"> Hi there</div>
+            </div>
+        </div>
+
+
+General developement considerations
+---
+
+## Design Patterns involved
+
+* Each Element and Place have a **State** object that manages the dragable/dropable/moving status, and x,y position for Elements. This State is *watched* by Angular
+* The dragable/dropable condition depends on the application state, the destination Place state and the dragged element. Thus it is managed by the ConditionMediator
+
+
+        <!-- myMediator  will decide if the Element can move out of placeA and go in placeB -->
+        <div rc-place="placeA" rc-draggable="myMediator">
+            <div rc-movable>....</div>
+        </div>
+
+        <div rc-place="placeB" rc-dropable="myMediator">
+
+        </div>
+
+### Logging and Undoing
+
+All move, zoom, drag, drop events are registered as **Command**s (another Design Pattern) inside a Logger object
+and a **Memento** object (yet another Design Pattern).
+You can push the Logger to your website and have more informations on how your end-users are using the action.
+You can use the Memento to *Undo* previous actions.
+
 
 
 Specific Development

@@ -1,3 +1,8 @@
+
+###
+  The Directive contains a Viewport and a div for the Place/Map
+  The initial element where rc-place is put become the Viewport
+###
 class PlaceDirective
   constructor: () ->
     # Constructor stuff
@@ -7,9 +12,12 @@ class PlaceDirective
   replace: false
   scope:
     attributeStuff: '='
+  template:"<div class='place' ng-transclude></div>"
+  transclude: true
   link: (scope, element, attr) ->
-    alert "yo the directive from Coffescript/Browserified class"
-    angular.element(element).html("watch this  evented  hello")
+    $elt=angular.element(element);
+    $elt.addClass("rc-viewport")
+    #$elt.html("watch this  evented  hello")
 
 
 module.exports = PlaceDirective
