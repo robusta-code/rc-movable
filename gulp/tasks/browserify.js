@@ -1,61 +1,69 @@
-/* browserify task
-   ---------------
-   Bundle javascripty things with browserify!
-
-   This task is set up to generate multiple separate bundles, from
-   different sources, and to use Watchify when run from the default task.
-
-   See browserify.bundleConfigs in gulp/config.js
-*/
-
-
 var gulp = require('gulp');
-var exorcist = require('exorcist');
-var source = require('vinyl-source-stream');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
+
+
+//read coffescript files with required depencies, and package into one JS file
 var browserify = require('browserify');
-/*var browserSync  = require('browser-sync');
+//Watch for file changes and make events
 var watchify     = require('watchify');
-var bundleLogger = require('../util/bundleLogger');
-
-
-var handleErrors = require('../util/handleErrors');
-
-//var config       = require('../config').browserify;
-//var _            = require('lodash');
-*/
-
+//Use text stream for better interoperability with the existing npm stream ecosystem
+var source = require('vinyl-source-stream');
+//Extract source maps from vinyl stream
+var exorcist = require('exorcist');
 
 /*
-JSON for Browserify
-"browserify": {
-    "transform": [
-        "coffeeify"
-    ]
-},
-*/
-var browserifyTask = function(callback, devMode) {
+ JSON for Browserify inside package.json
+ "browserify": {
+ "transform": [
+    "coffeeify"   <-- each time browserify is called, it will coffeeify
+ ]
+ },
+ */
+var browserifyTask = function (callback, devMode) {
 
-    console.log("in browserifyTask")
+    console.log("in main browserifyTask")
 
-    return  browserify({
-        entries: ['./js/app.coffee'],
-        debug:true
-        /*,
-  //      extensions: ['.coffee'],
-        debug: true,
-        standalone:true*/
-    })
-        .bundle()
-        .pipe(exorcist('./dist/rc-movable.js.map'))
-        .pipe(source('./dist/rc-movable.js'))
-        .pipe(gulp.dest('./'));
+    var browserifiedSource = getBrowserifiedSources();
+    var watchifiedSource = watchify(browserifiedSource);
 
+    //when a file is changed, we will package, but work only on the small changed file
+    watchifiedSource .on('update', function(){
+        console.log("updated source");
+        bundle(watchifiedSource);
+    });
+
+    //when a file is changed, we will output the change
+    watchifiedSource.on('log', function (msg) {
+        console.log(msg);
+    });
+
+    //create the bundle
+    bundle(watchifiedSource);
 
 };
 
+
+function getBrowserifiedSources() {
+
+    return  browserify({
+        entries: ['./js/app.coffee'],
+        debug: true,
+        cache:{},
+        packageCache:{},
+        fullPaths:true
+    })
+
+}
+
+/**
+ * Create the bundle
+ * @param browserifiedSource browserified or watchified source
+ */
+function bundle(browserifiedSource) {
+    browserifiedSource.bundle()
+        .pipe(exorcist('./dist/rc-movable.js.map'))
+        .pipe(source('./dist/rc-movable.js'))
+        .pipe(gulp.dest('./'));
+}
 
 
 // Exporting the task so we can call it directly in our watch task, with the 'devMode' option

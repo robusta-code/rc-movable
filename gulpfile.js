@@ -3,11 +3,14 @@
 
 var gulp = require('gulp');
 
+//concat multiple files ; not needed with browserify, will be for sass/css
+var concat = require('gulp-concat');
+
 // Important : browserify must be ALSO set as a package for this app, not only gloablly
 // Or there will be a  "Unexpected token ILLEGAL", at least on Windows as it runs the shell command
 
 
-//Load plugins
+//Load plugins ; not needed yet
 var plugins = require('gulp-load-plugins')();
 
 //Vanilla node for deleeting files and folders
