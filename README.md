@@ -28,10 +28,10 @@ Include ``rc-movable.js`` in your HTML
 ![](./doc/movable.png)
 
         <!-- create a Place where you can drag from -->
-        <div place="Capitole">
+        <div rc-place="Capitole">
 
             <!-- create an element that will move inside the Place -->
-            <div movable>...</div>
+            <div rc-movable>...</div>
 
         </div>
 
@@ -45,14 +45,14 @@ Include ``rc-movable.js`` in your HTML
 Exemple
 
         <!-- The Capitole can move, rotate and/or zoom in/out -->
-        <div place="capitole" transformable>
+        <div rc-place="capitole" rc-transformable>
 
         </div>
 
 Exemple of only zoomable
 
         <!-- The Capitole can't move neither rotate but can zoom in (can't be smaller than inital size) -->
-        <div place="capitole" zoomable="in">
+        <div rc-place="capitole" rc-zoomable="in">
 
 
         </div>
@@ -66,17 +66,17 @@ Exemple of only zoomable
 * Places inside Places are not supported yet
 
         <!-- create a Place where you can drag from -->
-        <div place>
+        <div rc-place>
 
             <!-- create an element that will move inside the Place -->
-            <div movable="nolimit">...</div>
+            <div rc-movable="nolimit">...</div>
 
         </div>
 
 An element needs a Place to move
 
         <!-- Without Place, the element may move, but no guarantee on anything -->
-        <div movable>...</div>
+        <div rc-movable>...</div>
 
 ## Drag and Drop Features
 
@@ -88,23 +88,76 @@ An element needs a Place to move
 
 ## Design Patterns involved
 
-* Each Element and Place have a State object that manages the dragable/dropable/moving status, and x,y position for Elements. This State is *watched* by Angular
+* Each Element and Place have a **State** object that manages the dragable/dropable/moving status, and x,y position for Elements. This State is *watched* by Angular
 * The dragable/dropable condition depends on the application state, the destination Place state and the dragged element. Thus it is managed by the ConditionMediator
 
 
         <!-- myMediator  will decide if the Element can move out of placeA and go in placeB -->
-        <div place="placeA" draggable="myMediator">
-            <div movable>....</div>
+        <div rc-place="placeA" rc-draggable="myMediator">
+            <div rc-movable>....</div>
         </div>
 
-        <div place="placeB" dropable="myMediator">
+        <div rc-place="placeB" rc-dropable="myMediator">
 
         </div>
 
+### Logging and Undoing
+
+All move, zoom, drag, drop events are registered as **Command**s (another Design Pattern) inside a Logger object
+and a **Memento** object (yet another Design Pattern).
+You can push the Logger to your website and have more informations on how your end-users are using the action.
+You can use the Memento to *Undo* previous actions.
 
 
+Directive Summary
+===
 
-## Contribute
+Place
+---
+
+* `rc-place='{name}'` : create a Place with a string name. A place alone has no feature. As for now, *try* to make the name unique.
+* `rc-place rc-dragable` : makes the Place a dragable start
+* `rc-place rc-dropable` : makes the Place a dropable end
+* `rc-place rc-dragable="{&mediator}"` : makes the Place a dragable start under the Mediator condition
+* `rc-place rc-dropable="{&mediator}"` : makes the Place a  dropable end under the Mediator condition
+
+Note that the Mediator also handle conditions set by the Element being dragged
+
+Map
+---
+
+* `rc-place rc-transformable|rc-zoomable|rc-navigable|rc-rotationable`  : The Place is now considered a **Map**.
+* `rc-place rc-transformable`  : makes the Map able to be zoomable, rotationable and navigable (see below)
+* `rc-place rc-zoomable`  : Makes the Map zoomable. As soon as it's zoomed, it's also recommended to be *navigable*.
+* `rc-place rc-navigable`  : makes the Map able to navigate inside it's limits
+* `rc-place rc-rotationable`  : makes the place able to rotate (no sense on mobility as you can rotate it in your hands, but some managers love this features)
+* `rc-place rc-transformable="{&condition}"`  : makes the map able to move under conditions (also available for zoomable, rotationable and navigable independently)
+
+
+Element
+---
+
+* `rc-element='{name}'` : Element name. No feature by itself. Unless rc-place, it's not mandatory, just an indication. Maybe needed later.
+* `rc-movable`  : makes the element movable inside and outside the Place limit
+* `rc-movable="limit"`  : makes the element movable only inside it's Place. Thus, it's not dropable elsewhere.
+
+
+What is implemented as of today
+====
+
+* Hmmm... Nothing :)
+
+
+Specific Development
+====
+
+You may need some personal features. For exemple Elements are not zoomable/rotationable, and this is by design.
+
+If we receive a working and tested pull request for a specific feature, but we don't feel like integrating it in the main project, we will put it inside the `specific` branch nad list it there.
+
+
+Contribute
+====
 
 RC-Movable is written in CoffeeScript.
 
