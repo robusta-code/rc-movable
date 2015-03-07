@@ -4,7 +4,7 @@
   "homepage": "https://github.com/robusta-code/rc-movable",
   "authors": [
     "nicolas-zozol <nzozol@gmail.com>",
-      "Jean RAKOTOZAFY <jeanperlin@gmail.com> "
+    "Jean RAKOTOZAFY <jeanperlin@gmail.com> "
   ],
   "description": "High level Angular directives for element drag and drop in a transformable scene, mobile first.",
   "main": "app.js",
@@ -27,6 +27,8 @@
   ],
   "dependencies": {
     "angular": "~1.3.14",
-    "hammerjs": "~2.0.4"
+    "hammerjs": "~2.0.4",
+    "angular-mocks": "~1.3.14",
+    "jquery-2.1.0.min": "http://code.jquery.com/jquery-2.1.0.min.js"
   }
 }

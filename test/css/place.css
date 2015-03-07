@@ -1,0 +1,8 @@
+div.capitole{
+    margin: 50px;
+    box-sizing: border-box;
+    border: thick blue solid;
+    background-image: url(capitole.jpg);
+    width: 601px;
+    height: 361px;
+}
