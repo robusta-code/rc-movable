@@ -25,7 +25,9 @@ module.exports = function (config) {
             'bower_components/hammerjs/hammer.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
+            /* Used for object selection is specs. jQuery is just the killer app for these things*/
             'bower_components/jquery-2.1.0.min/index.js',
+            'test/utils/startup.js',
 
 
             //templates :
@@ -40,19 +42,22 @@ module.exports = function (config) {
 
             //loading tests
             'test/spec/**/*.js',
+            //'test/spec/test-me.js',
+            //'test/spec/place-directive-test.js',
+
 
             // Karma acts like a server which may render these files
             //css :
             'app/styles/map.css',
-            //images
-            //Not using this will cause :
+
+            //images:
+            // Not using this will cause :
             // Uncaught SyntaxError: Unexpected token <
             // at /Users/nicorama/code/produits/rcmap/app/images/rep/floor.svg:1
             {pattern: 'js/**/*.png', watched: false, included: false, served: true},
             {pattern: 'js/**/*.svg', watched: false, included: false, served: true}
 
-            //'app/**/*.png',
-            //'app/**/*.svg'
+
         ],
 
         ngHtml2JsPreprocessor: {

@@ -1,4 +1,8 @@
+#Only coffeescript, except configuration files
 js/**/*.js
 js/*.js
+test/**/*.js
+test/*.js
+
 dist/
 TODOS.md
