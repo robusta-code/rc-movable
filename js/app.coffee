@@ -1,11 +1,15 @@
 #angular is a global variable
-PlaceDirective = require './directives/place-directive.coffee'
-
-#Create your app
 rcMovable = angular.module('rcMovable', [])
-  .directive "rcPlace" , () ->
+PlaceDirective = require './directives/place-directive.coffee'
+TransformService =  require './services/transform-service.coffee'
+#Create your app
+
+rcMovable.directive "rcPlace" , () ->
       new PlaceDirective()
-  .controller "main", () ->
+  .controller "main", () -> null
+
+
+
 
 module.exports = rcMovable
 

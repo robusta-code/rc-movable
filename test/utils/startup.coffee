@@ -17,7 +17,7 @@ window.start = (html, cssFile) ->
   #mock the controller for the same reason and include $rootScope and $controller
   beforeEach (inject ($compile, _$rootScope_)->
 
-    console.log "in"
+
     $rootScope=_$rootScope_
 
     #create an empty scope

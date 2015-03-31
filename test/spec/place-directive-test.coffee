@@ -10,18 +10,25 @@ $rootScope = startup.$rootScope;
 viewport = startup.viewport;
 ###
 
-describe 'As a map object, I should have a some components before the user makes anything', ->
+describe 'As a map object, I', ->
 
   startup=start();
 
   it "must have a viewport", ->
-    expect(true).toBe(true);
-   # expect(viewport).not.toBeUndefined()
+    expect(viewport).not.toBeUndefined()
+
+  it 'must be zoomable',  inject(['transformService', (service) ->
+    map = viewport.find(".place")
+    initialWidth= map.width()
+    s = service.get()
+    s.zoom(4)
+
+    expect(map.width()).not.toBeLessThan (3.8 * map.width());
+  ]);
+
 
 ###
-  it 'must have a bunch of levels',  inject(['rcMapDataService', (service) ->
-    expect(viewport.find(".element").length).not.toBeLessThan(1);
-  ]);
+
 
 
   it 'should start with a Site1 element', () ->
