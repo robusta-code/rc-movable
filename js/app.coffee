@@ -1,12 +1,15 @@
 #angular is a global variable
 rcMovable = angular.module('rcMovable', [])
-PlaceDirective = require './directives/place-directive.coffee'
-TransformService =  require './services/transform-service.coffee'
+PlaceDirective = require './directives/rc-place.coffee'
+TransformService =  require './services/transformService.coffee'
 #Create your app
 
-rcMovable.directive "rcPlace" , () ->
-      new PlaceDirective()
-  .controller "main", () -> null
+rcMovable.directive "rcPlace" , () -> new PlaceDirective()
+rcMovable.factory "transformService", ()->new TransformService();
+
+rcMovable.controller "main", ($scope, transformService) ->
+  transformService.zoom(3)
+
 
 
 
