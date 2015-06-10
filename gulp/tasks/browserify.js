@@ -39,7 +39,13 @@ var browserifyTask = function (callback, devMode) {
     //create the bundle
     bundle(watchifiedSource);
 
+    //using test sources to simply rewrite
+
+
 };
+
+
+
 
 
 function getBrowserifiedSources() {
@@ -49,7 +55,7 @@ function getBrowserifiedSources() {
         debug: true,
         cache:{},
         packageCache:{},
-        fullPaths:true
+        fullPaths:false
     })
 
 }

@@ -14,7 +14,6 @@ module.exports = function (config) {
 
 
         preprocessors: {
-            '**/*.html': ['ng-html2js']
         },
 
 
@@ -22,29 +21,17 @@ module.exports = function (config) {
         files: [
 
 
+            /* Used for object selection is specs. jQuery is just the killer app for these things*/
+            'bower_components/jquery-2.1.0.min/index.js',
             'bower_components/hammerjs/hammer.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            /* Used for object selection is specs. jQuery is just the killer app for these things*/
-            'bower_components/jquery-2.1.0.min/index.js',
+
+            './dist/rc-movable.js',
             'test/utils/startup.js',
 
-
-            //templates :
-            'js/**/*.tpl.html',
-
-            //Creating modules
-            'dist/rc-movable.js',
-            //creating the main controller
-            'app/main/main.js',
-            //loading components
-            'app/components/map/**/*.js',
-
             //loading tests
-            'test/spec/**/*.js',
-            //'test/spec/test-me.js',
-            //'test/spec/place-directive-test.js',
-
+            'test/karma-js/**/*.js',
 
             // Karma acts like a server which may render these files
             //css :
@@ -54,28 +41,21 @@ module.exports = function (config) {
             // Not using this will cause :
             // Uncaught SyntaxError: Unexpected token <
             // at /Users/nicorama/code/produits/rcmap/app/images/rep/floor.svg:1
-            {pattern: 'js/**/*.png', watched: false, included: false, served: true},
-            {pattern: 'js/**/*.svg', watched: false, included: false, served: true}
+
+            //{pattern: 'js/**/*.png', watched: false, included: false, served: true},
+            //{pattern: 'js/**/*.svg', watched: false, included: false, served: true}
+
 
 
         ],
 
-        ngHtml2JsPreprocessor: {
-            // strip this from the file path
-            stripPrefix: 'js/',
-            // prepend this to the
-            //prependPrefix: '/base/',
-            moduleName: "my.templates"
-
-        },
-
         proxies :{
-            '/images/': 'http://localhost:9876/base/app/images/'
+          //  '/images/': 'http://localhost:9876/base/app/images/'
         },
 
         // list of files to exclude
         exclude: [
-            'app/bower_components/**/*.min.js'
+
         ],
 
 
@@ -85,7 +65,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        //reporters: ['progress'],
 
 
         // web server port
@@ -98,7 +78,7 @@ module.exports = function (config) {
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_DEBUG,
 
 
         // enable / disable watching file and executing tests whenever any file changes
@@ -114,9 +94,9 @@ module.exports = function (config) {
             'karma-jasmine',
             //'karma-coverage',
             //'karma-junit-reporter',
-            'karma-chrome-launcher',
+            'karma-chrome-launcher'/*,
             //'karma-firefox-launcher',
-            'karma-ng-html2js-preprocessor'
+            'karma-ng-html2js-preprocessor'*/
         ],
 
 

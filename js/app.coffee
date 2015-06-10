@@ -7,8 +7,11 @@ TransformService =  require './services/transformService.coffee'
 rcMovable.directive "rcPlace" , () -> new PlaceDirective()
 rcMovable.factory "transformService", ()->new TransformService();
 
-rcMovable.controller "main", ($scope, transformService) ->
+rcMovable.controller "MainCtrl", ($scope, transformService) ->
   transformService.zoom(3)
+  $scope.doStuff = () ->
+    "scope is doing some work";
+
 
 
 

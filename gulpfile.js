@@ -20,9 +20,19 @@ var del = require('del');
 var vinylPaths = require('vinyl-paths');
 
 var browserifyTask = require("./gulp/tasks/browserify.js");
+var coffeeTestsTask = require("./gulp/tasks/coffeeify-tests.js");
 
 
 gulp.task('by', browserifyTask);
+gulp.task('ct', coffeeTestsTask);
+
+
+gulp.task("ct2", function(){
+    return gulp.src('./test/spec/place-directive.coffee')
+        .pipe(coffeeify().on('error', util.log))
+        .pipe(gulp.dest('./test/js'));
+});
+
 
 gulp.task('clean', function () {
 
