@@ -8,6 +8,8 @@ The Touch events are using the light [Hammer.js](https://hammerjs.github.io/) de
 v 0.0.1 : simply DO NOT USE !!!!!
 ===
 
+This is only a proposition, not actual code. However it's based on previous experiences.
+
 OK, You want to check for fun or contribute
 ====
 
